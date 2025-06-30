@@ -36,20 +36,22 @@ class CalculatorTool(BaseTool):
 
     def execute(self, arguments: dict[str, Any]) -> str:
         try:
-            #TODO:
-            # 1. Get `num1` from `arguments` as `float` and assign to `num1` variable
-            # 2. Get `num2` from `arguments` as `float` and assign to `num2` variable
-            # 3. Get `operation` from `arguments` as `float` and assign to `operation` variable
-            # ---
-            # 4. Check all available operations from `TOOL_CONFIG`.
-            # 4.1. If `operation` is 'add' then `result = num1 + num2`
-            # 4.2. If `operation` is 'subtract' then `result = num1 - num2`
-            # 4.3. If `operation` is 'multiply' then `result = num1 * num2`
-            # 4.4. If `operation` is 'divide' then:
-            #       - if num2 == 0 ->  return "Error: Division by zero"
-            #       - else `result = num1 / num2`
-            # 4.5. Else: return f"Error: Unknown operation '{operation}'"
-            result = 0
+            num1 = float(arguments["num1"])
+            num2 = float(arguments["num2"])
+            operation = arguments["operation"]
+
+            if operation == "add":
+                result = num1 + num2
+            elif operation == "subtract":
+                result = num1 - num2
+            elif operation == "multiply":
+                result = num1 * num2
+            elif operation == "divide":
+                if num2 == 0:
+                    return "Error: Division by zero"
+                result = num1 / num2
+            else:
+                return f"Error: Unknown operation '{operation}'"
 
             return f"Result: {result}"
         except Exception as e:

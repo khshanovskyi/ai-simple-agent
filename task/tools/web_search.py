@@ -8,20 +8,23 @@ from task.tools.base import BaseTool
 
 class WebSearchTool(BaseTool):
 
-    #TODO:
-    # Create dict with openai configuration of tool:
-    # - "type": "function"
-    # - "function":
-    #       - "name": WEB_SEARCH
-    #       - "description": "Tool for WEB searching."
-    #       - "parameters":
-    #               - "type": "object"
-    #               - "properties":
-    #                       - "request":
-    #                           - "type": "string"
-    #                           - "description": "Search request."
-    #               - "required": ["request"]
-    TOOL_CONFIG = {}
+    TOOL_CONFIG = {
+        "type": "function",
+        "function": {
+            "name": WEB_SEARCH,
+            "description": "Tool for WEB searching.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "request": {
+                        "type": "string",
+                        "description": "Search request."
+                    }
+                },
+                "required": ["request"]
+            }
+        }
+    }
 
     def __init__(self, api_key: str):
         self.api_key = api_key

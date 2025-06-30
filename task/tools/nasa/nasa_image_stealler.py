@@ -10,20 +10,23 @@ from task.tools.nasa.models.image import ImageList, Image
 
 class NasaImageStealerTool(BaseTool):
 
-    #TODO:
-    # Create dict with openai configuration of tool:
-    # - "type": "function"
-    # - "function":
-    #       - "name": NASA_IMG_STEALER
-    #       - "description": "This tool provides description of the largest NASA image by Mars sol."
-    #       - "parameters":
-    #               - "type": "object"
-    #               - "properties":
-    #                       - "sol":
-    #                           - "type": "integer"
-    #                           - "description": "Sol of Mars."
-    #               - "required": ["sol"]
-    TOOL_CONFIG = {}
+    TOOL_CONFIG = {
+        "type": "function",
+        "function": {
+            "name": NASA_IMG_STEALER,
+            "description": "This tool provides description of the largest NASA image by Mars sol.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "sol": {
+                        "type": "integer",
+                        "description": "Sol of Mars."
+                    }
+                },
+                "required": ["sol"]
+            }
+        }
+    }
 
     def __init__(self, api_key: str):
         self.api_key = api_key
