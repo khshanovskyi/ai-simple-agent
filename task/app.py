@@ -16,9 +16,10 @@ def main():
         # deployment_name="anthropic.claude-3-7-sonnet-20250219-v1:0",
         api_key=API_KEY,
         tools=[
-            CalculatorTool.TOOL_CONFIG,
-            NasaImageStealerTool.TOOL_CONFIG,
-            WebSearchTool.TOOL_CONFIG
+            #TODO: add tools:
+            # -CalculatorTool.TOOL_CONFIG
+            # -NasaImageStealerTool.TOOL_CONFIG
+            # -WebSearchTool.TOOL_CONFIG
         ]
     )
 
