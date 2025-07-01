@@ -244,11 +244,5 @@ if function_name == "my_tool":
     return MyTool().execute(arguments)
 ```
 
-## 🔐 Security Considerations
-
-- **API Key Protection**: Never commit API keys to version control
-- **Input Validation**: All tool inputs are validated before execution
-- **Error Handling**: Sensitive information is not exposed in error messages
-
 ---
 # <img src="dialx-banner.png">
