@@ -178,7 +178,7 @@ POST https://ai-proxy.lab.epam.com/openai/deployments/{model}/chat/completions
       "content": "You are a helpful assistant."
     },
     {
-      "role": "user", 
+      "role": "user",
       "content": "Hello!"
     }
   ],
@@ -219,7 +219,7 @@ class MyTool(BaseTool):
             "parameters": {...}
         }
     }
-    
+
     def execute(self, arguments: dict) -> str:
         # Tool implementation
         return "Tool result"
@@ -243,12 +243,6 @@ client = DialClient(
 if function_name == "my_tool":
     return MyTool().execute(arguments)
 ```
-
-## 🔐 Security Considerations
-
-- **API Key Protection**: Never commit API keys to version control
-- **Input Validation**: All tool inputs are validated before execution
-- **Error Handling**: Sensitive information is not exposed in error messages
 
 ---
 # <img src="dialx-banner.png">
