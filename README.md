@@ -42,14 +42,8 @@ task/
 ### 1. Environment Setup
 
 ```bash
-# Create and activate virtual environment
+# Create virtual environment
 python -m venv .venv
-
-# On Windows
-.venv\Scripts\activate
-
-# On macOS/Linux  
-source .venv/bin/activate
 ```
 
 ### 2. Install Dependencies
@@ -65,6 +59,7 @@ pip install -r requirements.txt
     - Visit: https://support.epam.com/ess?id=sc_cat_item&table=sc_cat_item&sys_id=910603f1c3789e907509583bb001310c
 3. **Add DIAL API Key as Environment Variable**
 4. **Optional - NASA API Key** (for enhanced NASA tool functionality):
+    - Visit: https://api.nasa.gov/
 
 
 ## Example Interaction
@@ -155,11 +150,17 @@ TOOL_CONFIG = {
 ## 🧪 Testing
 
 ## Request sample:
-> Find descriptions of largest NASA pictures for sol 401, 402 and 452 and tell me if they have smth similar?
+```
+Find descriptions of largest NASA pictures for sol 401, 402 and 452 and tell me if they have smth similar?
+```
 
-> 489.4929 * 3564.111111
+```
+489.4929 * 3564.111111
+```
 
-> Find descriptions of largest NASA pictures for sol (10*40 (calculate it)) and tell me if they have smth similar?
+```
+Find descriptions of largest NASA pictures for sol (10*40 (calculate it)) and tell me if they have smth similar?
+```
 
 ## 🔍 API Reference
 
