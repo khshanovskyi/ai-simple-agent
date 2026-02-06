@@ -40,4 +40,4 @@ class UserUpdate(BaseModel):
     gender: Optional[str] = None
     company: Optional[str] = None
     salary: Optional[float] = None
-    credit_card: Optional[UserCreate] = None
+    credit_card: Optional[CreditCard] = None

@@ -7,7 +7,7 @@ class DeleteUserTool(BaseUserServiceTool):
 
     @property
     def name(self) -> str:
-        #TODO: Provide tool name as `delete_users`
+        #TODO: Provide tool name as `delete_user`
         raise NotImplementedError()
 
     @property
