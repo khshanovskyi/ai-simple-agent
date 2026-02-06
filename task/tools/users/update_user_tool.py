@@ -29,5 +29,5 @@ class UpdateUserTool(BaseUserServiceTool):
         # 1. Get user `id` from `arguments`
         # 2. Get `new_info` from `arguments` and create `UserUpdate` via pydentic `UserUpdate.model_validate`
         # 3. Call user_client update_user and return its results
-        # 4. Optional: You can wrap it with `try-except` and return error as string `f"Error while creating a new user: {str(e)}"`
+        # 4. Optional: You can wrap it with `try-except` and return error as string `f"Error while updating a new user: {str(e)}"`
         raise NotImplementedError()
