@@ -35,25 +35,50 @@ class WebSearchTool(BaseTool):
 
     @property
     def name(self) -> str:
-        #TODO: Provide tool name as `web_search_tool`
-        raise NotImplementedError()
+        return "web_search_tool"
 
     @property
     def description(self) -> str:
-        #TODO: Provide description of this tool
-        raise NotImplementedError()
+        return "Search the web for information. Use for queries or to find details about people, events, or topics."
 
     @property
     def input_schema(self) -> dict[str, Any]:
-        #TODO: Provide tool params Schema (it applies `request` string to search by)
-        raise NotImplementedError()
+        return {
+            "type": "object",
+            "properties": {
+                "request": {
+                    "type": "string",
+                    "description": "The search query or question to search for on the web",
+                }
+            },
+            "required": ["request"],
+        }
 
     def execute(self, arguments: dict[str, Any]) -> str:
-        #TODO:
-        # 1. Create `headers` dict: "api-key": self.__api_key, "Content-Type": "application/json"
-        # 2. Create `request_data` dict with:
-        #    - "messages": [{"role": "user", "content": str(arguments["request"])}]
-        #    - "tools": [{"type": "static_function", "static_function": {"name": "google_search", "description": "Grounding with Google Search","configuration": {}}}]
-        # 3. Make POST call with `requests` lib: `url=self.__endpoint, headers=headers, json=request_dat`
-        # 4. Check if response status is 200 and if yes then return message content, otherwise return `f"Error: {response.status_code} {response.text}"`
-        raise NotImplementedError()
+        headers = {
+            "api-key": self.__api_key,
+            "Content-Type": "application/json",
+        }
+        request_data = {
+            "messages": [{"role": "user", "content": str(arguments["request"])}],
+            "tools": [
+                {
+                    "type": "static_function",
+                    "static_function": {
+                        "name": "google_search",
+                        "description": "Grounding with Google Search",
+                        "configuration": {},
+                    },
+                }
+            ],
+        }
+        response = requests.post(
+            url=self.__endpoint, headers=headers, json=request_data
+        )
+        if response.status_code == 200:
+            data = response.json()
+            choices = data.get("choices", [])
+            if choices and "message" in choices[0]:
+                return choices[0]["message"].get("content", "") or ""
+            return ""
+        return f"Error: {response.status_code} {response.text}"

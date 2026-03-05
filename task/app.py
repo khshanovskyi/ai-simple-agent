@@ -14,23 +14,43 @@ from task.tools.users.user_client import UserClient
 from task.tools.web_search import WebSearchTool
 
 DIAL_ENDPOINT = "https://ai-proxy.lab.epam.com"
-API_KEY = os.getenv('DIAL_API_KEY')
+API_KEY = os.getenv("DIAL_API_KEY")
+DIAL_DEPLOYMENT = os.getenv("DIAL_DEPLOYMENT", "gpt-4o")
+
 
 def main():
-    #TODO:
-    # 1. Create UserClient
-    # 2. Create DialClient with all tools (WebSearchTool, GetUserByIdTool, SearchUsersTool, CreateUserTool, UpdateUserTool, DeleteUserTool)
-    # 3. Create Conversation and add there first System message with SYSTEM_PROMPT (you need to write it in task.prompts#SYSTEM_PROMPT)
-    # 4. Run infinite loop and in loop and:
-    #    - get user input from terminal (`input("> ").strip()`)
-    #    - Add User message to Conversation
-    #    - Call DialClient with conversation history
-    #    - Add Assistant message to Conversation and print its content
-    raise NotImplementedError()
+    if not API_KEY:
+        print("Error: DIAL_API_KEY environment variable is not set.")
+        return
+    user_client = UserClient()
+    tools = [
+        WebSearchTool(api_key=API_KEY, endpoint=DIAL_ENDPOINT),
+        GetUserByIdTool(user_client),
+        SearchUsersTool(user_client),
+        CreateUserTool(user_client),
+        UpdateUserTool(user_client),
+        DeleteUserTool(user_client),
+    ]
+    client = DialClient(
+        endpoint=DIAL_ENDPOINT,
+        deployment_name=DIAL_DEPLOYMENT,
+        api_key=API_KEY,
+        tools=tools,
+    )
+    conversation = Conversation()
+    conversation.add_message(Message(role=Role.SYSTEM, content=SYSTEM_PROMPT))
+    while True:
+        user_input = input("> ").strip()
+        if not user_input:
+            continue
+        conversation.add_message(Message(role=Role.USER, content=user_input))
+        assistant_message = client.get_completion(
+            conversation.get_messages(), print_request=False
+        )
+        conversation.add_message(assistant_message)
+        print(assistant_message.content or "(No response text)")
+        print()
 
 
-main()
-
-#TODO:
-# Request sample:
-# Add Andrej Karpathy as a new user
+if __name__ == "__main__":
+    main()
